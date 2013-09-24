@@ -1,0 +1,411 @@
+$baseFontSize: 14;
+$gutter: 10;
+$totalColumns: 12;
+$rowWidth: 1000;
+
+$screenLarge: 600px;
+
+/* Helper functions */
+
+@function emCalc($pxWidth) {
+  @return $pxWidth / $baseFontSize * 1em;
+}
+
+@function percent($a, $b)
+{
+	@return ($a / $b) * 100%;
+}
+
+$gutterEm: emCalc($gutter);
+$maxWidth: emCalc(800);
+$lineHeight: 1.2em;
+
+$mainColor1: #005C99;
+$mainColor2: #00406B;
+
+/* Table colors */
+$tableBg: #fff;
+$tableAltBg: #eee;
+
+$tableColor: #333;
+$tableAltColor: #333;
+$tableHeadBg: #ccc;
+$tableHeadColor: #333;
+$tableHeadBorder: 1px solid #ccc;
+
+$tableBorder: #ccc;
+
+/* Button colors */
+$btnBg1: #eee;
+$btnBg2: #ccc;
+$btnColor: #333;
+
+$btnPrimaryBg1: #428bca;
+$btnPrimaryBg2: darken($btnPrimaryBg1, 15%);
+$btnPrimaryColor: #fff;
+
+$btnDangerBg1: #ff3019;
+$btnDangerBg2: darken($btnDangerBg1, 25%);
+$btnDangerColor: #fff;
+
+/* Form colors */
+
+$inputBorder: 1px solid #888;
+$inputColor: #333;
+
+
+/* Mixins */
+@mixin rounded($radius)
+{
+	-moz-border-radius: $radius;
+	-webkit-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin gradient($start, $stop)
+{
+	background: $start;
+	background: -moz-linear-gradient(top, $start 0%, $stop 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$start), color-stop(100%,$stop));
+	background: -webkit-linear-gradient(top, $start 0%,$stop 100%);
+	background: -o-linear-gradient(top, $start 0%,$stop 100%);
+	background: -ms-linear-gradient(top, $start 0%,$stop 100%);
+	background: linear-gradient(to bottom, $start 0%,$stop 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$start', endColorstr='$stop',GradientType=0 );
+}
+
+@mixin button($bg1, $bg2, $text-color)
+{
+	@include gradient($bg1, $bg2);
+	@include rounded(3px);
+
+	display: inline-block;
+	padding: 0.4em 0.8em;
+	margin: 0.2em 0.2em 0.2em 0;
+	border: 1px solid $bg2;
+
+	vertical-align: middle;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1em;
+	color: $text-color;
+
+	&:hover
+	{
+		@include gradient(darken($bg1, 10%), darken($bg2, 10%));
+		border-color: darken($bg2, 10%);
+		cursor: pointer;
+	}
+
+	&.btn-small
+	{
+		padding: 0.2em 0.6em;
+		margin: 0.1em 0.1em 0.1em 0;
+		font-size: 0.9em;
+	}
+
+	&.btn-large
+	{
+		padding: 0.5em 1em;
+		margin: 0.25em 0.25em 0.25em 0;
+		font-size: 1.1em;
+	}
+}
+
+/* Use border-box */
+*, *:before, *:after 
+{
+  -moz-box-sizing: border-box; 
+  -webkit-box-sizing: border-box; 
+  box-sizing: border-box;
+}
+
+html, body
+{
+	height: 100%;
+	@include gradient($mainColor2, $mainColor1);
+}
+
+body
+{
+	
+	margin: 0;
+/*	background-repeat: no-repeat;
+    background-attachment: fixed;
+*/
+	font: #{$baseFontSize}px normal Helvetica, Arial;
+	line-height: $lineHeight;
+	color: #333;
+}
+
+hr
+{
+	margin-bottom: 2em;
+	background-color: #888;
+	color: #888;
+}
+
+h1
+{
+	font-size: 1.8em;
+	margin: 0.5em;
+}
+
+table
+{
+	margin: 1em 0;
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	border: 1px solid $tableBorder;
+	@include rounded(3px);
+
+	thead
+	{
+
+		tr
+		{
+			background: $tableHeadBg;
+		}
+
+		th
+		{
+			text-align: left;
+			padding: 0.5em;
+			color: $tableHeadColor;
+			border-bottom: $tableHeadBorder;
+		}
+	}
+
+	tbody
+	{
+
+		tr
+		{
+			background: $tableBg;
+			color: $tableColor;
+		}
+
+				tr:last-child td
+				{
+					border-bottom: 0;
+				}
+
+			tr td.controls
+			{
+				min-width: emCalc(100);
+				text-align: right;
+			}
+
+			tr:nth-child(even)
+			{
+				background: $tableAltBg;
+				color: $tableAltColor;
+			}
+
+			td
+			{
+				padding: 0.2em 0.5em;
+				vertical-align: middle;
+				border-top: 1px solid $tableBorder;
+			}
+	}
+}
+
+	fieldset
+	{
+		margin: 1em 0 0 0;
+		border: 0;
+
+		legend
+		{
+			margin-bottom: 1em;
+			color: #888;
+			font-size: 1.2em;
+		}
+	}
+
+		label
+		{
+			display: block;
+			margin-bottom: 0.5em;
+			vertical-align: middle;
+		}
+
+		label.text-right
+		{
+			text-align: left !important;
+		}
+
+		input[type=text]
+		{
+			@include rounded(3px);
+			min-width: 75%;
+			padding: 0.5em;
+			border: $inputBorder;
+			vertical-align: middle;
+		}
+
+		button
+		{
+			border: 0;
+		}
+
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+
+/* Buttons */
+
+.btn
+{
+	@include button($btnBg1, $btnBg2, $btnColor);
+}
+
+	.btn-primary
+	{
+		@include button($btnPrimaryBg1, $btnPrimaryBg2, $btnPrimaryColor);
+	}
+
+		.btn-primary:hover
+		{
+			@include gradient(lighten($btnPrimaryBg1, 10%), lighten($btnPrimaryBg2, 10%));
+			border-color: lighten($btnPrimaryBg2, 10%);
+		}
+
+	.btn-danger
+	{
+		@include button($btnDangerBg1, $btnDangerBg2, $btnDangerColor);
+	}
+
+		.btn-danger:hover
+		{
+			@include gradient(lighten($btnDangerBg1, 10%), lighten($btnDangerBg2, 10%));
+			border-color: lighten($btnDangerBg2, 10%);
+		}
+
+/* Errors and notices */
+
+#notification
+{
+	display: none;
+}
+
+.comment, .error, .notice, .success { padding: .8em; margin-bottom: 1em; border: 2px solid #ddd; }
+
+.error      { background: #FBE3E4; color: #8a1f11; border-color: #FBC2C4; }
+.notice     { background: #FFF6BF; color: #514721; border-color: #FFD324; }
+.success    { background: #E6EFC2; color: #264409; border-color: #C6D880; }
+.comment    { background: #e6e6e6; color: #262626; border-color: #c6c66c; border-style:dotted; }
+.error a    { color: #8a1f11; }
+.notice a   { color: #514721; }
+.success a  { color: #264409; }
+
+
+/* Page elements */
+
+#container
+{
+	margin: auto auto;
+	max-width: $maxWidth;
+	overflow: auto;
+}
+
+#main
+{
+	max-width: $maxWidth;
+	min-height: 500px;
+	margin: 0.5em;
+	padding: 1em;
+	background: white;
+	@include rounded(5px);
+	box-shadow: 5px 5px 10px rgba(0,0,0,0.25);
+}
+	h1#logo
+	{
+		text-align: center;
+	}
+
+	#edit-client-dialog
+	{
+		position: relative;
+		margin-top: 1em;
+		padding: 0 1em 1em 1em;
+		border: 1px solid #888;
+		@include rounded(5px);
+	}
+
+		#close-edit-dialog
+		{
+			position: absolute;
+			right: 1em;
+			top: 0.5em;
+		}
+
+	#spinner
+	{
+		margin: 1em;
+	}
+
+	.client .controls a
+	{
+		margin-left: 0.5em;
+	}
+
+@media only screen and (min-width: $screenLarge)
+{
+	label
+	{
+		line-height: 1.8em;
+		margin-bottom: 0;
+	}
+
+	label.text-right
+	{
+		text-align: right !important;
+	}
+
+	input[type=text]
+	{
+		position: relative;
+		display: inline-block;
+	}
+
+	input.small { min-width: 25%; }
+	input.medium { min-width: 50%; }
+	input.large { min-width: 75% ;}
+	input.full { min-width: 100% ;}
+
+	table
+	{
+
+		td, th
+		{
+			/* font-size: 0.8em; */
+		}
+		
+	}
+
+	#main
+	{
+		margin: 1em;	
+	}
+
+	.btn 
+	{
+		padding: 0.5em 1em;
+	}
+
+		.btn.btn-small
+		{
+			padding: 0.4em 0.8em;
+		}
+
+		.btn.btn-large
+		{
+			padding: 0.6em 1.2em;
+		}
+
+}
+
+@import "grid";

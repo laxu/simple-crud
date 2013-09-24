@@ -1,0 +1,30 @@
+/* Grid */
+
+@mixin buildColumn($i, $collapse: false)
+{
+	.grid-#{$i} 
+	{ 
+		float: left;
+  		width: percent($i,$totalColumns) - percent($gutter,$rowWidth);
+  		/* margin-right: if($collapse, emCalc($gutter / 2), $gutterEm);  */
+  		margin-right: $gutterEm;
+ 	}
+ }
+
+.row
+{
+	display: block;
+	max-width: emCalc($rowWidth);
+	overflow: auto;
+	clear: both;
+	margin-bottom: 1em;
+}
+
+@for $i from 1 through $totalColumns {
+	@include buildColumn($i);
+}
+
+.last
+{
+	margin-right: 0 !important;
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Test</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="css/app.css">
+	</head>
+	<body>
+		<script type="text/html" id="list-item-template">
+			<tr class="client" data-id="{{_id}}">
+				<td class="name">{{name}}</td>
+				<td class="company">{{company}}</td>
+				<td class="controls"><a href="#" class="btn btn-small edit-client-button">Edit</a><a href="#" class="btn btn-small delete-client-button">X</a></td>
+			</tr>
+		</script>
+		
+		<div id="container">
+			<div class="row" id="main">
+				
+				<h1 id="logo">Simple CRUD</h1>
+				<hr>
+				
+				<div id="toolbar">
+					<div id="notification"></div>
+					
+					<a href="#" class="btn btn-primary" id="add-client-button">Add client</a>
+					
+					<div style="display:none" id="edit-client-dialog">
+						<a href="#" id="close-edit-dialog" class="btn btn-small">X</a>
+						<form action="/editClient" method="post" name="edit-client-form" id="edit-client-form" class="form-horizontal">
+							<fieldset>
+								<legend>Add new client</legend>
+								<input type="hidden" name="id" value="">
+								<div class="row">
+									<div class="grid-2">
+										<label for="name" class="text-right">Name:</label>
+									</div>
+									<div class="grid-10 last controls">
+										<input type="text" name="name" placeholder="John Doe" class="medium">
+									</div>
+								</div>
+								<div class="row">
+									<div class="grid-2">
+										<label for="company" class="text-right">Company:</label>
+									</div>
+									<div class="grid-10 last controls">
+										<input type="text" name="company" placeholder="Company Ltd" class="medium">
+									</div>
+								</div>
+								<div class="row">
+									<div class="grid-2">&nbsp;</div>
+									<div class="grid-10 last controls">
+										<button type="submit" class="btn">Save</button>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				
+				</div>
+				
+				<img src="images/ajax-loader.gif" id="spinner" style="display:none">
+				
+				<table id="list" class="table table-striped">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Company</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody id="list-body">
+					</tbody>
+				</table>
+			
+			</div>
+		</div>
+		<script type="text/javascript" src="frontend-ck.js"></script>
+	</body>
+</html>
